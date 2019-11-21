@@ -51,7 +51,7 @@ opens a new window showing all the links from the url you are currently on. Be a
 ### Security and Auditing
 #### Remove Cookies
 removes cookies.
-###Updates
+### Updates
 #### Bookmarklets Releases
 takes you to the github page
 #### Close

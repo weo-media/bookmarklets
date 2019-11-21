@@ -63,7 +63,7 @@ add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
 add_label('Updates');
-add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets/releases`);
+add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets`);
 add_bookmarklet('Close', hide_panel);
 
 // append bookmarklets

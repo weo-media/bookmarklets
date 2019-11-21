@@ -1,8 +1,3 @@
-// open panel
-javascript:(function(){document.body.appendChlistItemd(document.createElement('script')).src='https://caiorss.github.io/commandpanel.js' })();
-
-//--------------------------------------------------------------------//
-
 const unorderedList = create_tag("ul");
 
 function create_tag(tag){

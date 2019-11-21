@@ -1,4 +1,4 @@
-const unorderedList = create_tag("ul");
+let unorderedList = create_tag("ul");
 
 function create_tag(tag){
     return document.createElement(tag);

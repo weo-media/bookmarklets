@@ -32,7 +32,7 @@ document.querySelector("body").appendChild(panel);
 //From WEO pages
 add_label('From WEO Pages');
 add_bookmarklet('Get Edit Page', `javascript:let weo = document.querySelector('meta[content="wspd"]'); let editPage = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed; location.href = editPage;`);
-add_bookmarklet('Get Edit Template', `javascript:let weo = document.querySelector('meta[content="wspd"]'); let editPage = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed; location.href = editPage;`);
+add_bookmarklet('Get Edit Template', `javascript:let weo = document.querySelector('meta[content="wspd"]'); let editTemplate = 'https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt; location.href = editTemplate;`);
 
 // SEO
 add_label('SEO');

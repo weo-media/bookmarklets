@@ -1,5 +1,3 @@
-let unorderedList = create_tag("ul");
-
 function create_tag(tag){
     return document.createElement(tag);
 }
@@ -63,27 +61,30 @@ function showAllLinks(){
     w.document.write(a);    
 }
 
+// create the panel
+let unorderedList = create_tag("ul");
 unorderedList.className = "bookmarklets" ;
 unorderedList.style="list-style-type:disc";
 
-panel = create_tag("div");
+let panel = create_tag("div");
 
-panelbar = create_tag("div");
+let panelbar = create_tag("div");
 
-panelbar.innerHTML = "JS PANEL" ;
-
-panelbar.style.height = "20px";
-panelbar.style["background-color"] = "yellow";
+panelbar.innerHTML = "WEO Panel" ;
+panelbar.style.padding = "6px";
+panelbar.style["background-color"] = "#253b7d";
+panelbar.style["color"] = "#fff";
 panelbar.style["z-index"] = 10e5;
 panelbar.onclick = hide_panel ;
 
-subpanel = create_tag("div");
+let subpanel = create_tag("div");
 
 panel.id = "InjectorPanel";
 panel.style.position = "fixed";
 panel.style.width = "150px";
 panel.style.top = "0px";
-panel.style["background-color"] = "lightblue";
+panel.style["background-color"] = "#65C6F4";
+panel.style["color"] = "#fff";
 
 panel.appendChild(panelbar);
 panel.appendChild(subpanel);
@@ -109,7 +110,7 @@ add_bookmarklet("Remove Cookies", "javascript:void(document.cookie=null)");
 // Updates Section
 add_label("Updates");
 add_bookmarklet("Bookmarklets", "http://caiorss.github.io/bookmarklets.html");
-add_bookmarklet("Close", remove_panel);
+add_bookmarklet("Close", hide_panel);
 
 
 subpanel.appendChild(unorderedList);

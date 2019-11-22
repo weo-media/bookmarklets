@@ -30,14 +30,19 @@ panel.appendChild(subpanel);
 
 document.querySelector("body").appendChild(panel);
 
-//From WEO pages
-add_label('From WEO Pages');
+//From WEO client pages
+add_label('From WEO Client Pages');
 add_bookmarklet('Get Edit Page', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;`);
 add_bookmarklet('Get Edit Template', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt;`);
 add_bookmarklet('Get WebEdit', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c`);
 add_bookmarklet('search analysis A', `javascript:(function(){var locOrigin = document.location.origin; var url = locOrigin; var keywords = document.querySelector('meta[name="keywords"]').content.split(','); document.location.href = 'https://www.google.com/search?q=' + keywords[0] + '&num=100';})();` );
 add_bookmarklet('search analysis B', `javascript:(function(){var listings = document.getElementsByClassName('g');for (i=0;i<listings.length;i++) { var listNum = document.createElement('span'); listNum.innerText = 'Rank Number: '+ (Number(i) +1); document.getElementsByClassName('g')[i].appendChild(listNum) };})();` );
 add_bookmarklet('seo-analysis', `javascript:(function(){var errors=''; var h1links=document.getElementsByTagName('h1'); for(var i=0;i<h1links.length;i++) {var current=document.getElementsByTagName(&quot;h1&quot;)[i].innerHTML; document.getElementsByTagName(&quot;h1&quot;)[i].innerHTML=&quot;*H1*&quot; + current; document.getElementsByTagName(&quot;h1&quot;)[i].style.color='purple'; } if (h1links.length>1) {errors=errors+'<div style=&quot;color:red; text-size:16px&quot;>Alert! More than one H1 tag used</div>'; } if (h1links.length==0) {errors=errors+'<div style=&quot;color:red; text-size:16px&quot;>Alert! No H1 Tags Used</div>'; } var h2links=document.getElementsByTagName('h2'); for (var i=0;i<h2links.length;i++) {var current=document.getElementsByTagName(&quot;h2&quot;)[i].innerHTML; document.getElementsByTagName(&quot;h2&quot;)[i].innerHTML=&quot;*H2*&quot; + current; document.getElementsByTagName(&quot;h2&quot;)[i].style.color='purple'; } var h3links=document.getElementsByTagName('h3'); for (var i=0;i<h3links.length;i++) {var current=document.getElementsByTagName(&quot;h3&quot;)[i].innerHTML; document.getElementsByTagName(&quot;h3&quot;)[i].innerHTML=&quot;*H3*&quot; + current; document.getElementsByTagName(&quot;h3&quot;)[i].style.color='purple'; } var links=document.getElementsByTagName('a'); for (var i=0;i<links.length;i++) {var current=document.getElementsByTagName(&quot;a&quot;)[i]; var currentrel=current.rel; if (currentrel=='publisher') {current.style.border='3px orange solid'; } } var spans=document.getElementsByTagName('span'); for (var i=0;i<spans.length;i++) {var current=document.getElementsByTagName(&quot;span&quot;)[i]; var currentprop=current.getAttribute('itemprop'); if (currentprop=='name') {current.innerHTML='*Name*:'+current.innerHTML; } if (currentprop=='streetAddress') {current.innerHTML='*streetAddress*:'+current.innerHTML; } if (currentprop=='addressLocality') {current.innerHTML='*addressLocality*:'+current.innerHTML; } if (currentprop=='addressRegion') {current.innerHTML='*addressRegion*:'+current.innerHTML; } if (currentprop=='postalCode') {current.innerHTML='*postalCode*:'+current.innerHTML; } if (currentprop=='telephone'){current.innerHTML='*telephone*:'+current.innerHTML; } } var divs=document.getElementsByTagName('div'); for (var i=0;i<divs.length;i++) {var current=document.getElementsByTagName(&quot;div&quot;)[i]; var currentitem=current.getAttribute('itemtype'); if (currentitem=='http://schema.org/LocalBusiness') {current.style.border='3px red solid'; } } var images=document.getElementsByTagName('img'); for (var i=0;i<images.length;i++) {var current=document.getElementsByTagName(&quot;img&quot;)[i]; var currentalt=current.alt; if (currentalt!='') {current.style.border='3px lime solid'; current.insertAdjacentHTML('afterend','<div style=&quot;color:lime; font-size:16px; font-weight:bold&quot;>*Alt: ' + currentalt + '</div>'); } } var P=document.querySelector('meta[content=&quot;wspd&quot;]').dataset['wp']; var C=document.querySelector('meta[content=&quot;wspd&quot;]').dataset['c']; var title='Title: <a href=&quot;https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=1&quot; target=&quot;_blank&quot;>' + document.title + '</a>'; var body=document.body; var meta=document.getElementsByTagName(&quot;meta&quot;); for (var i=0;i<meta.length;i++) {if (meta[i].name.toLowerCase()==&quot;description&quot;) {description=meta[i].content; } } var linkdescription='Description: <a href=&quot;https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=2&quot; target=&quot;_blank&quot;>' + description + '</a>'; var forcecache='<a href=&quot;' + window.location.href + '&fc=1&quot;>force cache page</a>'; body.innerHTML='<div style=&quot;color:black; font-size:16px; font-weight:bold; background-color:white; z-index:9999;top:0px;left:0px; position:fixed&quot;>' + errors + '<br>' + title + '<br>' + linkdescription + '<br>' + forcecache + '</div>' + body.innerHTML;})();` );
+
+//From WEO sys pages
+add_label('From WEO Sys Pages');
+add_bookmarklet('Swap Tab Title', swapWeoSysTitle);
+
 
 // SEO
 add_label('SEO');
@@ -133,4 +138,10 @@ function showAllLinks(){
     }
     w = window.open('', 'Links', 'scrollbars,resizable,width=400,height=600');
     w.document.write(a);    
+}
+
+function swapWeoSysTitle(){
+  let name = window.document.title;
+  name = name.split(' - ');
+  window.document.title = name[1] + ' - ' + name[0]
 }

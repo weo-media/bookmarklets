@@ -4,7 +4,7 @@ Bookmark this page, but click "more" instead of "save".
 
 Then swap the url for the script below and save it:
 
-javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.5/bookmarklet-panel.js' })();
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.6/bookmarklet-panel.js' })();
 
 Or go to [here](http://www.weo2.com/p/dentist-Bookmarklets-Panel-p43800.asp) and drag the WEO Panel link to your bookmarks bar
 
@@ -20,6 +20,13 @@ Part 1. From a WEO client's page, this will search google based on the main comp
 Part 2. On the google results page, this will add the rank number to the result. (not sure how well this works.)
 #### seo-analysis
 Ported from Nick tools. This will highlight the h tags (h1, h2...), the images, and also have links to the edit title and edit description page.
+### From WEO Sys Pages
+#### Swap Tab Title
+Changes the page title from "WEO c### - Edit Website" to "Edit Website - WEO c###" so the page type can be easily seen from the tab
+#### Get HTML of Article
+from the edit article page, opens a new window with the raw html. useful for converting weo code to html for wordpress articles
+#### Get Page Keys from WebEdit
+from the WebEdit page, opens a new window with all the page IDs in page key form.
 ### SEO
 #### Structured Data
 Checks structured data for the url of the page you are currently on. 

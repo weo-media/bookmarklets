@@ -42,7 +42,8 @@ add_bookmarklet('seo-analysis', `javascript:(function(){var errors=''; var h1lin
 //From WEO sys pages
 add_label('From WEO Sys Pages');
 add_bookmarklet('Swap Tab Title', swapWeoSysTitle);
-
+add_bookmarklet('Get HTML of Article', getHtmlOfArticle);
+add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
 
 // SEO
 add_label('SEO');
@@ -76,22 +77,22 @@ add_bookmarklet('Close', hide_panel);
 subpanel.appendChild(unorderedList);
 
 function create_tag(tag){
-    return document.createElement(tag);
+  return document.createElement(tag);
 }
 
 function create_text(text){
-    return document.createTextNode(text);
+  return document.createTextNode(text);
 }
 
 function hyperlink(label, url){
-    let a = create_tag("a") ;
-    a.innerHTML = label;
-    if (typeof url == "function"){
-        a.href = funcToBookmarkletUrl(url);
-    }else{
-        a.href = url;
-    }
-    return a;
+  let a = create_tag("a") ;
+  a.innerHTML = label;
+  if (typeof url == "function"){
+    a.href = funcToBookmarkletUrl(url);
+  }else{
+    a.href = url;
+  }
+  return a;
 }
 
 function add_bookmarklet(label, url){
@@ -112,36 +113,57 @@ function add_label(label){
 }
 
 function funcToBookmarkletUrl(func){
-    let code = func.toString();
-    let url = 'javascript:(function()' + code.replace(/function.*\(\)/, '').replace(/\/\/.*/,"") + ")();";
-    return url ;
+  let code = func.toString();
+  let url = 'javascript:(function()' + code.replace(/function.*\(\)/, '').replace(/\/\/.*/,"") + ")();";
+  return url ;
 }
 
 function remove_panel(){
-    panel.remove();
+  panel.remove();
 }
 
 function hide_panel(){
-    if (subpanel.hidden ==false){
-        subpanel.hidden = true;
-    }else{
-        subpanel.hidden = false;
-    }
+  if (subpanel.hidden ==false){
+    subpanel.hidden = true;
+  }else{
+    subpanel.hidden = false;
+  }
 }
 
 // bookmarklet functions
 function showAllLinks(){
-    let a = '';
-    for (let ln = 0; ln < document.links.length; ln++) {
-        let lk = document.links[ln];
-        a += ln + ': <a href=\'' + lk + '\' title=\'' + lk.text + '\'>' + lk + '</a><br>\n';
-    }
-    w = window.open('', 'Links', 'scrollbars,resizable,width=400,height=600');
-    w.document.write(a);    
+  let a = '';
+  for (let ln = 0; ln < document.links.length; ln++) {
+    let lk = document.links[ln];
+    a += ln + ': <a href=\'' + lk + '\' title=\'' + lk.text + '\'>' + lk + '</a><br>\n';
+  }
+  w = window.open('', 'Links', 'scrollbars,resizable,width=400,height=600');
+  w.document.write(a);
 }
 
 function swapWeoSysTitle(){
   let name = window.document.title;
   name = name.split(' - ');
-  window.document.title = name[1] + ' - ' + name[0]
+  window.document.title = name[1] + ' - ' + name[0];
+}
+
+function getHtmlOfArticle() {
+  let iframe = document.querySelector('table#Main iframe');
+  let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+  let iframeContent = iframeDocument.querySelector('body table.TPartBox>tbody>tr>td');
+  let articleContent = iframeContent.innerHTML;
+  let w = window.open('', 'Article', 'scrollbars,resizable,width=1000,height=100');
+  w.document.write(`<pre>${articleContent.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</pre>`);
+}
+
+function getPagesListFromWebEdit() {
+  let pages = Array.from(document.querySelectorAll('tr>td.tpItemText>a'));
+  let pageIDs = [];
+  for (i=0;i<pages.length;i++) {
+    pageID = pages[i].title.split(' - ')[0].slice(8);
+    pageText = pages[i].text;
+    pageIDs += `<div>[[[Page:${pageID}|${pageText}|]]]</div>`;
+  }
+  let w = window.open('', 'Pages List', 'scrollbars, resizable, width=800, height=600');
+  w.document.write(pageIDs);
 }

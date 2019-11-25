@@ -171,15 +171,15 @@ function getPagesListFromWebEdit() {
 }
 
 function pingdomTestA() {
-  // get Url From Page
+  /*get Url From Page*/
   let pingdomData = document.location.href.split('\:\/\/')[1];
-  // go To Pingdom with encoded url
+  /*go To Pingdom with encoded url*/
   let pingdom = 'https://tools.pingdom.com/?PingUrl=' + pingdomData;
   window.open(pingdom);
 }
 
 function pingdomTestB() {
-  // add Url To Pingdom From url query
+  /*add Url To Pingdom From url query*/
   var url = document.location.href,
     params = url.split('?')[1].split('&'),
     data = {}, tmp;
@@ -190,12 +190,12 @@ function pingdomTestB() {
   var mouseE = new MouseEvent("mouseenter", { 'view': window, 'bubbles': true, 'cancelable': true });
   var touchE = new MouseEvent("input", { 'view': window, 'bubbles': true, 'cancelable': true });
   var keyE = new MouseEvent("keypress", { 'view': window, 'bubbles': true, 'cancelable': true });
-  // add url value
+  /*add url value*/
   document.querySelector('input#urlInput').value = data.PingUrl;
-  // trick the tester
+  /*trick the tester*/
   document.querySelector('input#urlInput').dispatchEvent(touchE);
   document.querySelector('input#urlInput').dispatchEvent(keyE);
-  // select Pacific - Australia - Sydney
+  /*select Pacific - Australia - Sydney*/
   document.querySelector('app-select').click();
   document.querySelector('app-select div.option:nth-child(6)').dispatchEvent(mouseE);
   document.querySelector('app-select div.option:nth-child(6)').click();

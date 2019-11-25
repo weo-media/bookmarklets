@@ -48,6 +48,8 @@ add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
 // SEO
 add_label('SEO');
 add_bookmarklet('Structured Data', `javascript:(function(){location.href='https://search.google.com/structured-data/testing-tool/u/0/#url='+window.location})();` );
+add_bookmarklet('Pingdom Test A', pingdomTestA);
+add_bookmarklet('Pingdom Test B', pingdomTestB);
 add_bookmarklet('100 links A', `javascript:(function(){location.href = window.location.href + '&num=100'})();` );
 add_bookmarklet('100 links B', `javascript:(function(){var a = document.getElementsByTagName('a'), arr = ''; for(var i=0;i<a.length;i++) if (a[i].ping && !a[i].href.includes('google'))arr +=('<p>' + a[i].href + '</p>'); var newWindow = window.open(); newWindow.document.write(arr); newWindow.document.close();})();` );
 add_bookmarklet('map rank page 1', `javascript:(function(){var arr = Array.from(document.querySelectorAll('.rlfl__tls > div'));for (i=0;i<arr.length;i++) { var listNum = document.createElement('span'); listNum.innerText = 'Rank Number: '+ (Number(i) +1); document.querySelectorAll('.rlfl__tls > div')[i].appendChild(listNum) };})();` );
@@ -166,4 +168,36 @@ function getPagesListFromWebEdit() {
   }
   let w = window.open('', 'Pages List', 'scrollbars, resizable, width=800, height=600');
   w.document.write(pageIDs);
+}
+
+function pingdomTestA() {
+  // get Url From Page
+  let pingdomData = document.location.href.split('\:\/\/')[1];
+  // go To Pingdom with encoded url
+  let pingdom = 'https://tools.pingdom.com/?PingUrl=' + pingdomData;
+  window.open(pingdom);
+}
+
+function pingdomTestB() {
+  // add Url To Pingdom From url query
+  var url = document.location.href,
+    params = url.split('?')[1].split('&'),
+    data = {}, tmp;
+  for (var i = 0, l = params.length; i < l; i++) {
+    tmp = params[i].split('=');
+    data[tmp[0]] = tmp[1];
+  }
+  var mouseE = new MouseEvent("mouseenter", { 'view': window, 'bubbles': true, 'cancelable': true });
+  var touchE = new MouseEvent("input", { 'view': window, 'bubbles': true, 'cancelable': true });
+  var keyE = new MouseEvent("keypress", { 'view': window, 'bubbles': true, 'cancelable': true });
+  // add url value
+  document.querySelector('input#urlInput').value = data.PingUrl;
+  // trick the tester
+  document.querySelector('input#urlInput').dispatchEvent(touchE);
+  document.querySelector('input#urlInput').dispatchEvent(keyE);
+  // select Pacific - Australia - Sydney
+  document.querySelector('app-select').click();
+  document.querySelector('app-select div.option:nth-child(6)').dispatchEvent(mouseE);
+  document.querySelector('app-select div.option:nth-child(6)').click();
+  document.querySelector('input[value="START TEST"]').click();
 }

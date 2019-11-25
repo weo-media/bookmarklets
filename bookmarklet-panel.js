@@ -116,7 +116,7 @@ function add_label(label){
 
 function funcToBookmarkletUrl(func){
   let code = func.toString();
-  let url = 'javascript:(function()' + code.replace(/function.*\(\)/, '').replace(/\/\/.*/,"") + ")();";
+  let url = 'javascript:(function()' + code.replace(/function.*\(\)/, '') + ")();";
   return url ;
 }
 
@@ -177,16 +177,16 @@ function pingdomTestA() {
 }
 
 function pingdomTestB() {
-  var url = document.location.href,
+  let url = document.location.href,
     params = url.split('?')[1].split('&'),
     data = {}, tmp;
-  for (var i = 0, l = params.length; i < l; i++) {
+  for (let i = 0, l = params.length; i < l; i++) {
     tmp = params[i].split('=');
     data[tmp[0]] = tmp[1];
   }
-  var mouseE = new MouseEvent("mouseenter", { 'view': window, 'bubbles': true, 'cancelable': true });
-  var touchE = new MouseEvent("input", { 'view': window, 'bubbles': true, 'cancelable': true });
-  var keyE = new MouseEvent("keypress", { 'view': window, 'bubbles': true, 'cancelable': true });
+  let mouseE = new MouseEvent("mouseenter", { 'view': window, 'bubbles': true, 'cancelable': true });
+  let touchE = new MouseEvent("input", { 'view': window, 'bubbles': true, 'cancelable': true });
+  let keyE = new MouseEvent("keypress", { 'view': window, 'bubbles': true, 'cancelable': true });
   document.querySelector('input#urlInput').value = data.PingUrl;
   document.querySelector('input#urlInput').dispatchEvent(touchE);
   document.querySelector('input#urlInput').dispatchEvent(keyE);

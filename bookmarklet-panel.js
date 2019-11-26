@@ -4,6 +4,7 @@ unorderedList.className = "bookmarklets" ;
 unorderedList.style="list-style-type:disc";
 unorderedList.style.padding = "6px";
 unorderedList.style["font-size"] = "12px";
+unorderedList.style["line-height"] = "18px";
 
 let panel = create_tag("div");
 
@@ -18,7 +19,7 @@ panelbar.onclick = hide_panel ;
 let subpanel = create_tag("div");
 
 panel.id = "InjectorPanel";
-panel.style["z-index"] = 105;
+panel.style["z-index"] = 99999;
 panel.style.position = "fixed";
 panel.style.width = "250px";
 panel.style.top = "0px";
@@ -104,6 +105,7 @@ function add_bookmarklet(label, url){
   let a = hyperlink(label, url);
   a.style["color"] = "#fff";
   a.style.display = "block";
+  a.style['line-height'] = '18px';
   listItem.appendChild(a);
   unorderedList.appendChild(listItem);
 }

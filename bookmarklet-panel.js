@@ -24,6 +24,8 @@ panel.style.width = "250px";
 panel.style.top = "0px";
 panel.style["background-color"] = "#65C6F4";
 panel.style.color = "#fff";
+panel.style["max-height"] = "90vh";
+panel.style["overflow-y"] = "auto";
 
 panel.appendChild(panelbar);
 panel.appendChild(subpanel);

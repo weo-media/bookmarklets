@@ -4,7 +4,7 @@ Bookmark this page, but click "more" instead of "save".
 
 Then swap the url for the script below and save it:
 
-javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.12/bookmarklet-panel.js' })();
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.13/bookmarklet-panel.js' })();
 
 Or go to [here](http://www.weo2.com/p/dentist-Bookmarklets-Panel-p43800.asp) and drag the WEO Panel link to your bookmarks bar
 
@@ -18,7 +18,7 @@ From a WEO client's page, live or not, if you are already logged in, this will t
 #### search analysis A
 Part 1. From a WEO client's page, this will search google based on the main competitive key phrase. It will also show 100 results instead of default 10.
 #### search analysis B
-Part 2. On the google results page, this will add the rank number to the result. (not sure how well this works.)
+Part 2. On the google results page, this will add the rank number to the result and scroll the client's listing into view if it can be found on the page.
 #### seo-analysis
 Ported from Nick tools. This will highlight the h tags (h1, h2...), the images, and also have links to the edit title and edit description page.
 

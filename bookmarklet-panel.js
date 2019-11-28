@@ -39,8 +39,8 @@ add_label('From WEO Client Pages');
 add_bookmarklet('Get Edit Page', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;`);
 add_bookmarklet('Get Edit Template', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt;`);
 add_bookmarklet('Get WebEdit', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c`);
-add_bookmarklet('search analysis A', `javascript:(function(){var locOrigin = document.location.origin; var url = locOrigin; var keywords = document.querySelector('meta[name="keywords"]').content.split(','); document.location.href = 'https://www.google.com/search?q=' + keywords[0] + '&num=100' + '&websiteUrl=' + url;})();` );
-add_bookmarklet('search analysis B', `javascript:(function(){let url = document.location.href, params = url.split('?')[1].split('&'), data = {}, tmp; for (let i = 0, l = params.length; i < l; i++) {tmp = params[i].split('='); data[tmp[0]] = tmp[1]; }; var listings = document.getElementsByClassName('g');for (i=0;i<listings.length;i++) { var listNum = document.createElement('span'); listNum.innerText = 'Rank Number: '+ (Number(i) +1); document.getElementsByClassName('g')[i].appendChild(listNum) }; let site = document.querySelector('a[href^="' + data.websiteUrl + '"]'); site.style = 'padding-top:100px;margin-top:-100px;display:block;';site.scrollIntoView();})();` );
+add_bookmarklet('search analysis A', searchAnalysisA);
+add_bookmarklet('search analysis B', searchAnalysisB );
 add_bookmarklet('seo-analysis', seoAnalysis);
 
 //From WEO sys pages
@@ -289,4 +289,30 @@ function seoAnalysis() {
   var linkdescription='Description: <a href="https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=2" target="_blank">' + description + '</a>';
   var forcecache='<a href="' + window.location.href + '&fc=1">force cache page</a>';
   body.innerHTML='<div style="color:black; font-size:16px; font-weight:bold; background-color:white; z-index:9999;top:0px;left:0px; position:fixed">' + errors + '<br>' + title + '<br>' + linkdescription + '<br>' + forcecache + '</div>' + body.innerHTML;
+}
+
+function searchAnalysisA() {
+  var url = document.location.host; 
+  var keywords = document.querySelector('meta[name="keywords"]').content.split(','); 
+  document.location.href = 'https://www.google.com/search?q=' + keywords[0] + '&num=100' + '&websiteUrl=' + url;
+}
+
+function searchAnalysisB() {
+  let url = document.location.href, 
+    params = url.split('?')[1].split('&'), 
+    data = {}, 
+    tmp; 
+  for (let i = 0, l = params.length; i < l; i++) {
+    tmp = params[i].split('='); 
+    data[tmp[0]] = tmp[1]; 
+  }
+  var listings = document.getElementsByClassName('g');
+  for (i=0;i<listings.length;i++) {
+    var listNum = document.createElement('span');
+    listNum.innerText = 'Rank Number: '+ (Number(i) +1);
+    document.getElementsByClassName('g')[i].appendChild(listNum)
+  }
+  let site = document.querySelector('a[href*="' + data.websiteUrl + '"]'); 
+  site.style = 'padding-top:100px;margin-top:-100px;display:block;';
+  site.scrollIntoView();
 }

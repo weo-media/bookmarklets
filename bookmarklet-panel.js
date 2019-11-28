@@ -312,7 +312,13 @@ function searchAnalysisB() {
     listNum.innerText = 'Rank Number: '+ (Number(i) +1);
     document.getElementsByClassName('g')[i].appendChild(listNum)
   }
-  let site = document.querySelector('a[href*="' + data.websiteUrl + '"]'); 
+  let site = document.querySelectorAll('a[href*="' + data.websiteUrl + '"]');
+  for (i=0;i<site.length;i++) {
+    if (site[i].host === data.websiteUrl) {
+      site = site[i];
+      break;
+    }
+  }
   site.style = 'padding-top:100px;margin-top:-100px;display:block;';
   site.scrollIntoView();
 }

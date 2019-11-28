@@ -1,15 +1,15 @@
 // https://www.weo2.com/sys/index.asp?f=editArticle&C=777&EDID=&A=80490
 // create the panel
-let unorderedList = create_tag("ul");
+var unorderedList = create_tag("ul");
 unorderedList.className = "bookmarklets" ;
 unorderedList.style="list-style-type:disc";
 unorderedList.style.padding = "6px";
 unorderedList.style["font-size"] = "12px";
 unorderedList.style["line-height"] = "18px";
 
-let panel = create_tag("div");
+var panel = create_tag("div");
 
-let panelbar = create_tag("div");
+var panelbar = create_tag("div");
 
 panelbar.innerHTML = "WEO Panel" ;
 panelbar.style.padding = "6px";
@@ -17,7 +17,7 @@ panelbar.style["background-color"] = "#253b7d";
 panelbar.style.color = "#fff";
 panelbar.onclick = hide_panel ;
 
-let subpanel = create_tag("div");
+var subpanel = create_tag("div");
 
 panel.id = "InjectorPanel";
 panel.style["z-index"] = 99999;
@@ -77,7 +77,7 @@ add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 // Updates Section
 add_label('Updates');
 add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets`);
-add_bookmarklet('Close', hide_panel);
+add_bookmarklet('Close', remove_panel);
 
 // append bookmarklets
 subpanel.appendChild(unorderedList);

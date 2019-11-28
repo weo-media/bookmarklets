@@ -4,7 +4,7 @@ Bookmark this page, but click "more" instead of "save".
 
 Then swap the url for the script below and save it:
 
-javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.14/bookmarklet-panel.js' })();
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.17/bookmarklet-panel.js' })();
 
 Or go to [here](http://www.weo2.com/p/dentist-Bookmarklets-Panel-p43800.asp) and drag the WEO Panel link to your bookmarks bar
 
@@ -72,4 +72,4 @@ removes cookies.
 #### Bookmarklets Releases
 takes you to the github page
 #### Close
-Closes the panel. You can also click the top bar of the panel to reopen and close the panel. Refresh the page to totally get rid of the panel.
+Closes the panel. You can also click the top bar of the panel to reopen and hide the panel if you don't want to totally get rid of it.

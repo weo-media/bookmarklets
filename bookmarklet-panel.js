@@ -202,6 +202,7 @@ function pingdomTestB() {
 }
 
 function seoAnalysis() {
+  remove_panel();
   var errors='';
   var h1links=document.getElementsByTagName('h1');
   for(var i=0;i<h1links.length;i++) {
@@ -288,5 +289,4 @@ function seoAnalysis() {
   var linkdescription='Description: <a href="https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=2" target="_blank">' + description + '</a>';
   var forcecache='<a href="' + window.location.href + '&fc=1">force cache page</a>';
   body.innerHTML='<div style="color:black; font-size:16px; font-weight:bold; background-color:white; z-index:9999;top:0px;left:0px; position:fixed">' + errors + '<br>' + title + '<br>' + linkdescription + '<br>' + forcecache + '</div>' + body.innerHTML;
-  remove_panel();
 }

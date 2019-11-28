@@ -298,6 +298,7 @@ function searchAnalysisA() {
 }
 
 function searchAnalysisB() {
+  remove_panel();
   let url = document.location.href, 
     params = url.split('?')[1].split('&'), 
     data = {}, 

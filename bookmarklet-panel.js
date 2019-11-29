@@ -276,8 +276,8 @@ function seoAnalysis() {
       current.insertAdjacentHTML('afterend','<div style="color:lime; font-size:16px; font-weight:bold">*Alt: ' + currentalt + '</div>');
     } 
   } 
-  var P=document.querySelector('meta[content="wspd"]').dataset['wp'];
-  var C=document.querySelector('meta[content="wspd"]').dataset['c'];
+  var P=document.querySelector('meta[content="wspd"]').dataset.wp;
+  var C=document.querySelector('meta[content="wspd"]').dataset.c;
   var title='Title: <a href="https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=1" target="_blank">' + document.title + '</a>';
   var body=document.body;
   var meta=document.getElementsByTagName("meta");
@@ -322,4 +322,9 @@ function searchAnalysisB() {
   }
   site.style = 'padding-top:100px;margin-top:-100px;display:block;';
   site.scrollIntoView();
+}
+
+function billingPackageCategories() {
+  document.querySelector('input[name="ViewClientDeald-SelPackageAllowCat"]').click();
+  document.querySelector('input[name="fuSubmit"]').click();
 }

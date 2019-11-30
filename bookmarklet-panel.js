@@ -11,7 +11,7 @@ var panel = create_tag("div");
 
 var panelbar = create_tag("div");
 
-panelbar.innerHTML = "WEO Panel" ;
+panelbar.innerHTML = 'WEO Panel' ;
 panelbar.style.padding = "6px";
 panelbar.style["background-color"] = "#253b7d";
 panelbar.style.color = "#fff";
@@ -75,7 +75,7 @@ add_label('Security and Auditing');
 add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
-add_label('Updates');
+add_label('Latest Version <img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">');
 add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets`);
 add_bookmarklet('Close', remove_panel);
 

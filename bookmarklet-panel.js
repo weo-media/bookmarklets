@@ -75,7 +75,8 @@ add_label('Security and Auditing');
 add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
-add_label('Latest Version <img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">');
+add_label('Latest Version');
+addVersion();
 add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets`);
 add_bookmarklet('Close', remove_panel);
 
@@ -99,6 +100,12 @@ function hyperlink(label, url){
     a.href = url;
   }
   return a;
+}
+
+function addVersion() {
+  let imgVersion = create_tag('img');
+  imgVersion.src = "https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg";
+  unorderedList.appendChild(imgVersion);
 }
 
 function add_bookmarklet(label, url){

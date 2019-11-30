@@ -1,4 +1,5 @@
-# Bookmarklets
+# Bookmarklets 
+![Bookmarklets Version](https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg)
 
 Bookmark this page, but click "more" instead of "save".
 

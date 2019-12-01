@@ -5,7 +5,7 @@ Bookmark this page, but click "more" instead of "save".
 
 Then swap the url for the script below and save it:
 
-javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.28/bookmarklet-panel.js' })();
+javascript:(function(){document.getElementById('InjectorPanel')?document.getElementById('InjectorPanel').remove():document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/weo-media/bookmarklets@1.0.28/bookmarklet-panel.js' })();
 
 Or go to [here](http://www.weo2.com/p/dentist-Bookmarklets-Panel-p43800.asp) and drag the WEO Panel link to your bookmarks bar
 
@@ -71,6 +71,6 @@ removes cookies.
 
 ### Updates
 #### Bookmarklets Releases
-takes you to the github page
+takes you to the page with the most current release. move the link to your bookmark bar to save.
 #### Close
-Closes the panel. You can also click the top bar of the panel to reopen and hide the panel if you don't want to totally get rid of it.
+Closes the panel. You can also click the top bar of the panel to hide and reopen the panel if you don't want to totally get rid of it.

@@ -76,8 +76,9 @@ add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
 add_label('Latest Version');
-addVersion();
-add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets`);
+// add_Version();
+add_bookmarklet('<img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">', 'https://github.com/weo-media/bookmarklets')
+add_bookmarklet('Bookmarklets Releases', `https://github.com/weo-media/bookmarklets/releases`);
 add_bookmarklet('Close', remove_panel);
 
 // append bookmarklets
@@ -102,7 +103,7 @@ function hyperlink(label, url){
   return a;
 }
 
-function addVersion() {
+function add_Version() {
   let imgVersion = create_tag('img');
   imgVersion.src = "https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg";
   unorderedList.appendChild(imgVersion);

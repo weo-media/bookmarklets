@@ -6,6 +6,7 @@ unorderedList.style="list-style-type:disc";
 unorderedList.style.padding = "6px";
 unorderedList.style["font-size"] = "12px";
 unorderedList.style["line-height"] = "18px";
+unorderedList.style['text-shadow'] = "0px 1px 2px #000;";
 
 var panel = create_tag("div");
 

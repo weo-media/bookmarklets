@@ -76,8 +76,7 @@ add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
 add_label('Latest Version');
-add_bookmarklet('<img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">', 'https://github.com/weo-media/bookmarklets');
-add_bookmarklet('Get Latest', `https://www.weo2.com/index.asp?N=dentist-Bookmarklets-Panel&Preview=1&C=777&P=43800`);
+add_bookmarklet('<img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">', 'https://www.weo2.com/index.asp?N=dentist-Bookmarklets-Panel&Preview=1&C=777&P=43800');
 add_bookmarklet('Close', remove_panel);
 
 // append bookmarklets

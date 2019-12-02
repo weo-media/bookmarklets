@@ -37,9 +37,10 @@ document.querySelector("body").appendChild(panel);
 
 //From WEO client pages
 add_label('From WEO Client Pages');
-add_bookmarklet('Get Edit Page', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;`);
-add_bookmarklet('Get Edit Template', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt;`);
-add_bookmarklet('Get WebEdit', `javascript:let weo = document.querySelector('meta[content="wspd"]'); location.href = 'https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c`);
+// add open in new tab
+add_bookmarklet('Get Edit Page', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;)`);
+add_bookmarklet('Get Edit Template', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt;)`);
+add_bookmarklet('Get WebEdit', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c)`);
 add_bookmarklet('search analysis A', searchAnalysisA);
 add_bookmarklet('search analysis B', searchAnalysisB );
 add_bookmarklet('seo-analysis', seoAnalysis);

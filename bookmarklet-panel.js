@@ -1,4 +1,4 @@
-// https://www.weo2.com/sys/index.asp?f=editArticle&C=777&EDID=&A=80490
+// Original implementation came from caiorss http://caiorss.github.io/bookmarklets.html
 // create the panel
 var unorderedList = create_tag("ul");
 unorderedList.className = "bookmarklets" ;

@@ -1,5 +1,6 @@
 # Bookmarklets 
 ![Bookmarklets Version](https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg)
+Original implementation came from caiorss, http://caiorss.github.io/bookmarklets.html
 
 Bookmark this page, but click "more" instead of "save".
 

@@ -42,7 +42,7 @@ add_bookmarklet('Get Edit Page', `javascript:remove_panel(); let weo = document.
 add_bookmarklet('Get Edit Template', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt;)`);
 add_bookmarklet('Get WebEdit', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c)`);
 add_bookmarklet('search analysis A', searchAnalysisA);
-add_bookmarklet('search analysis B', searchAnalysisB );
+add_bookmarklet('search analysis B', searchAnalysisB);
 add_bookmarklet('seo-analysis', seoAnalysis);
 
 //From WEO sys pages
@@ -68,6 +68,7 @@ add_bookmarklet('noFollow Links', `javascript:(function(){var a = document.getEl
 
 // Useful section
 add_label('Useful');
+add_bookmarklet('Copy Wrike Task Description', copyWrikeDescription);
 add_bookmarklet('Tiny URL', `javascript:void(open('https://tinyurl.com/create.php?url='+encodeURIComponent(location.href)))`);
 add_bookmarklet('Web Archive', `javascript:(function(){window.location='https://web.archive.org/web/*/' + document.URL})()`);
 add_bookmarklet('Show All Links', showAllLinks);
@@ -329,4 +330,16 @@ function searchAnalysisB() {
 function billingPackageCategories() {
   document.querySelector('input[name="ViewClientDeald-SelPackageAllowCat"]').click();
   document.querySelector('input[name="fuSubmit"]').click();
+}
+
+function copyWrikeDescription() {
+  var wrikeContent = document.querySelector('.ql-editor').innerHTML;
+  var textToCopy = document.createElement('input');
+  textToCopy.id = "selectableText";
+  document.body.appendChild(textToCopy);
+  var selectText = document.getElementById('selectableText');
+  selectText.value = wrikeContent;
+  selectText.select();
+  document.execCommand('copy');
+  selectText.remove();
 }

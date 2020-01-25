@@ -59,6 +59,8 @@ Asks for a search phrase then searches google, google trends, and wordtracker. Y
 highlights links with the noFollow attribute in red.
 
 ### Useful
+#### Copy Wrike Task Description
+copies the content of the wrike task description in HTML to the clipboard so you can paste into reports.
 #### Tiny URL
 makes a tiny url from the page you are currently on.
 #### Web Archive

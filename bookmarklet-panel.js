@@ -53,7 +53,7 @@ add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
 
 // SEO
 add_label('SEO');
-add_bookmarklet('301 redirects', `javascript:(function(){function redirects301() {const specialUrlDiv = getByXpath("//b[text()='Special URLs']/following-sibling::div"); specialUrlDiv.style.height = "100vh"; let newSpecialUrls = Number(window.prompt("How many special URLs would you like to create?", 0)); if (newSpecialUrls > 0) {/*click the add new domain button a number of times*/ for (var i = 0; i < newSpecialUrls; i++) {getByXpath("//div[@id='LoadMoreButton'][text()='Add new special URL']").click(); /*clickTheThings();*/ function clickTheThings() {document.querySelector("[data-im-f='GetSpecialURLList'] .TPpiBasic:last-of-type .buttonwrapper:last-of-type .ovalbutton").click(); setTimeout(function(){getByXpath("//input[contains(@id,'isActive')]").click()}, 1000); setTimeout(function(){getByXpath("//input[contains(@id,'is301')]").click()}, 1001); setTimeout(function(){getByXpath("//table[@class='tpDialogTable']//span[text()='Save']/parent::div").click()}, 1002); } } } }})();`); 
+add_bookmarklet('301 redirects', redirects301); 
 add_bookmarklet('Structured Data', `javascript:(function(){location.href='https://search.google.com/structured-data/testing-tool/u/0/#url='+window.location})();` );
 add_bookmarklet('Pingdom Test A', pingdomTestA);
 add_bookmarklet('Pingdom Test B', pingdomTestB);

@@ -346,10 +346,10 @@ function copyWrikeDescription() {
 }
 
 function redirects301() {
-  const specialUrlDiv = getByXpath("//b[text()='Special URLs']/following-sibling::div");
+  var specialUrlDiv = getByXpath("//b[text()='Special URLs']/following-sibling::div");
   specialUrlDiv.style.height = "100vh";
 
-  let newSpecialUrls = Number(window.prompt("How many special URLs would you like to create?", 0));
+  var newSpecialUrls = Number(window.prompt("How many special URLs would you like to create?", 0));
   if (newSpecialUrls > 0) {
     /*click the add new domain button a number of times*/ 
     for (var i = 0; i < newSpecialUrls; i++) {

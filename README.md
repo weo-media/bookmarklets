@@ -33,6 +33,10 @@ from the edit article page, opens a new window with the raw html. useful for con
 from the WebEdit page, opens a new window with all the page IDs in page key form.
 
 ### SEO
+#### 301 redirects - create new
+create a number of empty New Special URLs.
+#### 301 redirects - enter slug and id
+enter a slug and page id copied from google sheets.
 #### Structured Data
 Checks structured data for the url of the page you are currently on.
 #### Pingdom Test A

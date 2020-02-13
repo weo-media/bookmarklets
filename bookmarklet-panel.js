@@ -53,7 +53,8 @@ add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
 
 // SEO
 add_label('SEO');
-add_bookmarklet('301 redirects', redirects301); 
+add_bookmarklet('301 redirects - create new', redirects301); 
+add_bookmarklet('301 redirects - enter slug and id', redirects301Entry); 
 add_bookmarklet('Structured Data', `javascript:(function(){location.href='https://search.google.com/structured-data/testing-tool/u/0/#url='+window.location})();` );
 add_bookmarklet('Pingdom Test A', pingdomTestA);
 add_bookmarklet('Pingdom Test B', pingdomTestB);
@@ -346,26 +347,109 @@ function copyWrikeDescription() {
 }
 
 function redirects301() {
+  /* resize the window */
   var specialUrlDiv = getByXpath("//b[text()='Special URLs']/following-sibling::div");
   specialUrlDiv.style.height = "100vh";
 
+  /* prompt for number of new urls */
   var newSpecialUrls = Number(window.prompt("How many special URLs would you like to create?", 0));
   if (newSpecialUrls > 0) {
+
     /*click the add new domain button a number of times*/ 
     for (var i = 0; i < newSpecialUrls; i++) {
       getByXpath("//div[@id='LoadMoreButton'][text()='Add new special URL']").click();
-      /*clickTheThings();*/
-      
-      function clickTheThings() {
-        document.querySelector("[data-im-f='GetSpecialURLList'] .TPpiBasic:last-of-type .buttonwrapper:last-of-type .ovalbutton").click();
-        setTimeout(function(){getByXpath("//input[contains(@id,'isActive')]").click()}, 1000);
-        setTimeout(function(){getByXpath("//input[contains(@id,'is301')]").click()}, 1001);
-        setTimeout(function(){getByXpath("//table[@class='tpDialogTable']//span[text()='Save']/parent::div").click()}, 1002);
-      }
     }
   }
+
+  remove_panel();
+}
+
+function redirects301Entry() {
+  var allTheSlugsAndIds = getTheSlugsAndPageIds();
+
+  for (var i = 0; i < allTheSlugsAndIds.length; i++) {
+    var specialUrlId = getFirstNewSpecialUrlId();
+    waitForTheDialogueToCloseThen(doOneUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id, specialUrlId);
+  };
+
+  function getFirstNewSpecialUrlId() {
+    /* get first new special url div and then clean the id */
+    var firstNewSpecialURLDiv = getByXpath("//b[text()='New Special URL']/../../../../../..");
+    var firstNewSpecialURLID = firstNewSpecialURLDiv.id.replace('weoItem','');
+    return firstNewSpecialURLID
+  }
+  function getTheSlugsAndPageIds() {
+    /* prompt for slug and page id */
+    var theCombinedValue = window.prompt("Paste the two cells from google sheets", 0);
+    if (typeof theCombinedValue == "string") {
+      console.log(theCombinedValue);
+      var encoded = encodeURIComponent(theCombinedValue)
+      /* create array of objects to handle slug and id pairs */
+      var SlugsAndIdsArr = encoded.split('%0A');
+      var SlugsAndIdsObjArr = [];
+      for (var i = 0; i < SlugsAndIdsArr.length; i++) {
+        SlugsAndIdsObjArr[i] = {
+          slug: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[0]),
+          id: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[1])
+        };
+      }
+      return SlugsAndIdsObjArr;
+    }
+  }
+  function doOneUrl(slug, id, firstNewSpecialURLID) {
+    weoDTCommandClicked(firstNewSpecialURLID,'Edit');
+    waitForTheDialogueThen(addTheSlugAndPageId, slug, id, firstNewSpecialURLID);
+    waitForTheDialogueThen(clickTheThings);
+  }
+  function waitForTheDialogueThen(callback, param1, param2, param3) {
+    var isOpen = false;
+    var isDialogueOpenTimer = setInterval(function(){
+      if (getByXpath("//form[@name='SpecialURLID']") != null) {
+        isOpen = true;
+        if (isOpen && getByXpath("//form[@name='SpecialURLID']") != null) {
+          clearInterval(isDialogueOpenTimer);
+          callback(param1, param2, param3);
+        }
+      } else {
+        isOpen = false;
+      }
+    },500);
+  }
+  function waitForTheDialogueToCloseThen(callback, param1, param2, param3) {
+    var isOpen = true;
+    var isDialogueOpenTimer = setInterval(function(){
+      if (getByXpath("//form[@name='SpecialURLID']") == null) {
+        isOpen = false;
+        if (isOpen == false && getByXpath("//form[@name='SpecialURLID']") == null) {
+          clearInterval(isDialogueOpenTimer);
+          callback(param1, param2, param3);
+        }
+      } else {
+        isOpen = true;
+      }
+    },500);
+  }
+  function addTheSlugAndPageId(slug, id, specialURLID) {
+    
+    /* find slug input and id input */
+    specialURLID = specialURLID.slice(0, 12) + '-' + specialURLID.slice(12);
+    var slugInput = specialURLID + 'SpecialURL';
+    var idInput = specialURLID + 'ClientPageID';
+    document.getElementById(slugInput).value = slug;
+    document.getElementById(idInput).value = id;
+  }
+  function clickTheThings() {
+    var isActiveCheckbox = "//input[contains(@id,'isActive')]";
+    var is301Checkbox = "//input[contains(@id,'is301')]";
+    var specialURLSaveBtn = "//table[@class='tpDialogTable']//span[text()='Save']/parent::div";
+    getByXpath(isActiveCheckbox).click();
+    getByXpath(is301Checkbox).click();
+    getByXpath(specialURLSaveBtn).click();
+  }
+  
+  remove_panel();
 }
 
 function getByXpath(path) {
-  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }

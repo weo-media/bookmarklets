@@ -389,10 +389,10 @@ function getTheSlugsAndPageIds() {
     /* create array of objects to handle slug and id pairs */
     var SlugsAndIdsArr = encoded.split('%0A');
     var SlugsAndIdsObjArr = [];
-    for (var i = 0; i < SlugsAndIdsArr.length; i++) {
-      SlugsAndIdsObjArr[i] = {
-        slug: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[0]),
-        id: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[1])
+    for (var j = 0; j < SlugsAndIdsArr.length; j++) {
+      SlugsAndIdsObjArr[j] = {
+        slug: decodeURIComponent(SlugsAndIdsArr[j].split('%09')[0]),
+        id: decodeURIComponent(SlugsAndIdsArr[j].split('%09')[1])
       };
     }
     return SlugsAndIdsObjArr;

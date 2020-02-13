@@ -361,7 +361,7 @@ function redirects301() {
     }
   }
 
-  remove_panel();
+  hide_panel();
 }
 
 function redirects301Entry() {
@@ -446,8 +446,8 @@ function redirects301Entry() {
     getByXpath(is301Checkbox).click();
     getByXpath(specialURLSaveBtn).click();
   }
-  
-  remove_panel();
+
+  hide_panel();
 }
 
 function getByXpath(path) {

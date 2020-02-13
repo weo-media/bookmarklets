@@ -361,18 +361,26 @@ function redirects301() {
     }
   }
 
-  hide_panel();
+  if (subpanel && subpanel.hidden == false) {
+    hide_panel();
+  }
 }
 
 function redirects301Entry() {
-  var allTheSlugsAndIds = getTheSlugsAndPageIds();
+  var allTheSlugsAndIds = getTheSpecialUrlSlugsAndPageIds();
 
-  for (var i = 0; i < allTheSlugsAndIds.length; i++) {
-    var specialUrlId = getFirstNewSpecialUrlId();
-    waitForTheDialogueToCloseThen(doOneUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id, specialUrlId);
+  if (getByXpath("//form[@name='SpecialURLID']") != null) {
+    alert('Close all special url dialogue boxes');
+  };
+  if (getByXpath("//form[@name='SpecialURLID']") == null) {
+    for (var i = 0; i < allTheSlugsAndIds.length; i++) {
+    waitForTheSpecialUrlDialogueToCloseThen(doOneSpecialUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id);
+    };
   };
 
-  hide_panel();
+    if (subpanel && subpanel.hidden == false) {
+    hide_panel();
+  }
 }
 function getFirstNewSpecialUrlId() {
   /* get first new special url div and then clean the id */
@@ -380,11 +388,10 @@ function getFirstNewSpecialUrlId() {
   var firstNewSpecialURLID = firstNewSpecialURLDiv.id.replace('weoItem','');
   return firstNewSpecialURLID
 }
-function getTheSlugsAndPageIds() {
+function getTheSpecialUrlSlugsAndPageIds() {
   /* prompt for slug and page id */
   var theCombinedValue = window.prompt("Paste the two cells from google sheets", 0);
   if (typeof theCombinedValue == "string") {
-    console.log(theCombinedValue);
     var encoded = encodeURIComponent(theCombinedValue)
     /* create array of objects to handle slug and id pairs */
     var SlugsAndIdsArr = encoded.split('%0A');
@@ -398,12 +405,20 @@ function getTheSlugsAndPageIds() {
     return SlugsAndIdsObjArr;
   }
 }
-function doOneUrl(slug, id, firstNewSpecialURLID) {
-  weoDTCommandClicked(firstNewSpecialURLID,'Edit');
-  waitForTheDialogueThen(addTheSlugAndPageId, slug, id, firstNewSpecialURLID);
-  waitForTheDialogueThen(clickTheThings);
+function doOneSpecialUrl(slug, id) {
+  var specialUrlId = getFirstNewSpecialUrlId();
+  clickEditSpecialUrl(specialUrlId)
+  .then(waitForTheSpecialUrlDialogueThen(addTheSpecialUrlSlugAndPageId, slug, id, specialUrlId))
+  .then(waitForTheSpecialUrlDialogueThen(clickTheSpecialUrlThings));
 }
-function waitForTheDialogueThen(callback, param1, param2, param3) {
+async function clickEditSpecialUrl(firstNewSpecialURLID) {
+  let promise = new Promise(() => {
+    weoDTCommandClicked(firstNewSpecialURLID,'Edit');
+  });
+  let result = await promise;
+  result();
+}
+function waitForTheSpecialUrlDialogueThen(callback, param1, param2, param3) {
   var isOpen = false;
   var isDialogueOpenTimer = setInterval(function(){
     if (getByXpath("//form[@name='SpecialURLID']") != null) {
@@ -417,8 +432,8 @@ function waitForTheDialogueThen(callback, param1, param2, param3) {
     }
   },500);
 }
-function waitForTheDialogueToCloseThen(callback, param1, param2, param3) {
-  var isOpen = true;
+function waitForTheSpecialUrlDialogueToCloseThen(callback, param1, param2, param3) {
+  var isOpen;
   var isDialogueOpenTimer = setInterval(function(){
     if (getByXpath("//form[@name='SpecialURLID']") == null) {
       isOpen = false;
@@ -431,7 +446,7 @@ function waitForTheDialogueToCloseThen(callback, param1, param2, param3) {
     }
   },500);
 }
-function addTheSlugAndPageId(slug, id, specialURLID) {
+function addTheSpecialUrlSlugAndPageId(slug, id, specialURLID) {
   /* find slug input and id input */
   specialURLID = specialURLID.slice(0, 12) + '-' + specialURLID.slice(12);
   var slugInput = specialURLID + 'SpecialURL';
@@ -439,7 +454,7 @@ function addTheSlugAndPageId(slug, id, specialURLID) {
   document.getElementById(slugInput).value = slug;
   document.getElementById(idInput).value = id;
 }
-function clickTheThings() {
+function clickTheSpecialUrlThings() {
   var isActiveCheckbox = "//input[contains(@id,'isActive')]";
   var is301Checkbox = "//input[contains(@id,'is301')]";
   var specialURLSaveBtn = "//table[@class='tpDialogTable']//span[text()='Save']/parent::div";
@@ -452,4 +467,3 @@ function clickTheThings() {
 function getByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
-

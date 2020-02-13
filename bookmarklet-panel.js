@@ -372,84 +372,84 @@ function redirects301Entry() {
     waitForTheDialogueToCloseThen(doOneUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id, specialUrlId);
   };
 
-  function getFirstNewSpecialUrlId() {
-    /* get first new special url div and then clean the id */
-    var firstNewSpecialURLDiv = getByXpath("//b[text()='New Special URL']/../../../../../..");
-    var firstNewSpecialURLID = firstNewSpecialURLDiv.id.replace('weoItem','');
-    return firstNewSpecialURLID
-  }
-  function getTheSlugsAndPageIds() {
-    /* prompt for slug and page id */
-    var theCombinedValue = window.prompt("Paste the two cells from google sheets", 0);
-    if (typeof theCombinedValue == "string") {
-      console.log(theCombinedValue);
-      var encoded = encodeURIComponent(theCombinedValue)
-      /* create array of objects to handle slug and id pairs */
-      var SlugsAndIdsArr = encoded.split('%0A');
-      var SlugsAndIdsObjArr = [];
-      for (var i = 0; i < SlugsAndIdsArr.length; i++) {
-        SlugsAndIdsObjArr[i] = {
-          slug: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[0]),
-          id: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[1])
-        };
-      }
-      return SlugsAndIdsObjArr;
-    }
-  }
-  function doOneUrl(slug, id, firstNewSpecialURLID) {
-    weoDTCommandClicked(firstNewSpecialURLID,'Edit');
-    waitForTheDialogueThen(addTheSlugAndPageId, slug, id, firstNewSpecialURLID);
-    waitForTheDialogueThen(clickTheThings);
-  }
-  function waitForTheDialogueThen(callback, param1, param2, param3) {
-    var isOpen = false;
-    var isDialogueOpenTimer = setInterval(function(){
-      if (getByXpath("//form[@name='SpecialURLID']") != null) {
-        isOpen = true;
-        if (isOpen && getByXpath("//form[@name='SpecialURLID']") != null) {
-          clearInterval(isDialogueOpenTimer);
-          callback(param1, param2, param3);
-        }
-      } else {
-        isOpen = false;
-      }
-    },500);
-  }
-  function waitForTheDialogueToCloseThen(callback, param1, param2, param3) {
-    var isOpen = true;
-    var isDialogueOpenTimer = setInterval(function(){
-      if (getByXpath("//form[@name='SpecialURLID']") == null) {
-        isOpen = false;
-        if (isOpen == false && getByXpath("//form[@name='SpecialURLID']") == null) {
-          clearInterval(isDialogueOpenTimer);
-          callback(param1, param2, param3);
-        }
-      } else {
-        isOpen = true;
-      }
-    },500);
-  }
-  function addTheSlugAndPageId(slug, id, specialURLID) {
-    
-    /* find slug input and id input */
-    specialURLID = specialURLID.slice(0, 12) + '-' + specialURLID.slice(12);
-    var slugInput = specialURLID + 'SpecialURL';
-    var idInput = specialURLID + 'ClientPageID';
-    document.getElementById(slugInput).value = slug;
-    document.getElementById(idInput).value = id;
-  }
-  function clickTheThings() {
-    var isActiveCheckbox = "//input[contains(@id,'isActive')]";
-    var is301Checkbox = "//input[contains(@id,'is301')]";
-    var specialURLSaveBtn = "//table[@class='tpDialogTable']//span[text()='Save']/parent::div";
-    getByXpath(isActiveCheckbox).click();
-    getByXpath(is301Checkbox).click();
-    getByXpath(specialURLSaveBtn).click();
-  }
-
   hide_panel();
 }
+function getFirstNewSpecialUrlId() {
+  /* get first new special url div and then clean the id */
+  var firstNewSpecialURLDiv = getByXpath("//b[text()='New Special URL']/../../../../../..");
+  var firstNewSpecialURLID = firstNewSpecialURLDiv.id.replace('weoItem','');
+  return firstNewSpecialURLID
+}
+function getTheSlugsAndPageIds() {
+  /* prompt for slug and page id */
+  var theCombinedValue = window.prompt("Paste the two cells from google sheets", 0);
+  if (typeof theCombinedValue == "string") {
+    console.log(theCombinedValue);
+    var encoded = encodeURIComponent(theCombinedValue)
+    /* create array of objects to handle slug and id pairs */
+    var SlugsAndIdsArr = encoded.split('%0A');
+    var SlugsAndIdsObjArr = [];
+    for (var i = 0; i < SlugsAndIdsArr.length; i++) {
+      SlugsAndIdsObjArr[i] = {
+        slug: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[0]),
+        id: decodeURIComponent(SlugsAndIdsArr[i].split('%09')[1])
+      };
+    }
+    return SlugsAndIdsObjArr;
+  }
+}
+function doOneUrl(slug, id, firstNewSpecialURLID) {
+  weoDTCommandClicked(firstNewSpecialURLID,'Edit');
+  waitForTheDialogueThen(addTheSlugAndPageId, slug, id, firstNewSpecialURLID);
+  waitForTheDialogueThen(clickTheThings);
+}
+function waitForTheDialogueThen(callback, param1, param2, param3) {
+  var isOpen = false;
+  var isDialogueOpenTimer = setInterval(function(){
+    if (getByXpath("//form[@name='SpecialURLID']") != null) {
+      isOpen = true;
+      if (isOpen && getByXpath("//form[@name='SpecialURLID']") != null) {
+        clearInterval(isDialogueOpenTimer);
+        callback(param1, param2, param3);
+      }
+    } else {
+      isOpen = false;
+    }
+  },500);
+}
+function waitForTheDialogueToCloseThen(callback, param1, param2, param3) {
+  var isOpen = true;
+  var isDialogueOpenTimer = setInterval(function(){
+    if (getByXpath("//form[@name='SpecialURLID']") == null) {
+      isOpen = false;
+      if (isOpen == false && getByXpath("//form[@name='SpecialURLID']") == null) {
+        clearInterval(isDialogueOpenTimer);
+        callback(param1, param2, param3);
+      }
+    } else {
+      isOpen = true;
+    }
+  },500);
+}
+function addTheSlugAndPageId(slug, id, specialURLID) {
+  /* find slug input and id input */
+  specialURLID = specialURLID.slice(0, 12) + '-' + specialURLID.slice(12);
+  var slugInput = specialURLID + 'SpecialURL';
+  var idInput = specialURLID + 'ClientPageID';
+  document.getElementById(slugInput).value = slug;
+  document.getElementById(idInput).value = id;
+}
+function clickTheThings() {
+  var isActiveCheckbox = "//input[contains(@id,'isActive')]";
+  var is301Checkbox = "//input[contains(@id,'is301')]";
+  var specialURLSaveBtn = "//table[@class='tpDialogTable']//span[text()='Save']/parent::div";
+  getByXpath(isActiveCheckbox).click();
+  getByXpath(is301Checkbox).click();
+  getByXpath(specialURLSaveBtn).click();
+}
+
 
 function getByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
+

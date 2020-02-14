@@ -373,10 +373,15 @@ function redirects301Entry() {
     alert('Close all special url dialogue boxes');
   };
   if (getByXpath("//form[@name='SpecialURLID']") == null) {
-    for (var i = 0; i < allTheSlugsAndIds.length; i++) {
-    waitForTheSpecialUrlDialogueToCloseThen(doOneSpecialUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id);
-    };
+    /* for (var i = 0; i < allTheSlugsAndIds.length; i++) {
+      waitForTheSpecialUrlDialogueToCloseThen(doOneSpecialUrl, allTheSlugsAndIds[i].slug, allTheSlugsAndIds[i].id);
+    }; */
+    allTheSlugsAndIds.forEach((slugIdPair) => {
+      waitForTheSpecialUrlDialogueToCloseThen(doOneSpecialUrl, slugIdPair.slug, slugIdPair.id)
+    });
   };
+
+
 
     if (subpanel && subpanel.hidden == false) {
     hide_panel();

@@ -1,5 +1,4 @@
-// Original implementation came from caiorss http://caiorss.github.io/bookmarklets.html
-// create the panel
+// Original implementation came from caiorss http://caiorss.github.io/bookmarklets.html // create the panel
 var unorderedList = create_tag("ul");
 unorderedList.className = "bookmarklets" ;
 unorderedList.style="list-style-type:disc";
@@ -292,7 +291,20 @@ function seoAnalysis() {
     } 
   } 
   var linkdescription='Description: <a href="https://www.weo2.com/sys/index.asp?f=editSubjectLine&C='+C+'&EDID=&eWP=1&WPID='+P+'&WPEL=2" target="_blank">' + description + '</a>';
-  var forcecache='<a href="' + window.location.href + '&fc=1">force cache page</a>';
+  var curUrl = window.location.href;
+  var fcUrl;
+  /* if no ? */
+  if (curUrl.search(/\?/) == -1) {
+    fcUrl = curUrl + '?fc=1';
+  } else {
+    /* if no fc=1 */
+    if (curUrl.search(/fc\=1/) == -1) {
+      fcUrl = curUrl + '&fc=1';
+    } else {
+      fcUrl = curUrl;
+    }
+  }
+  var forcecache='<a href="' + fcUrl + '">force cache page</a>';
   body.innerHTML='<div style="color:black; font-size:16px; font-weight:bold; background-color:white; z-index:9999;top:0px;left:0px; position:fixed">' + errors + '<br>' + title + '<br>' + linkdescription + '<br>' + forcecache + '</div>' + body.innerHTML;
 }
 
@@ -468,7 +480,21 @@ function clickTheSpecialUrlThings() {
   getByXpath(specialURLSaveBtn).click();
 }
 
-
 function getByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
+
+function forceCache() {
+  var curUrl = window.location.href;
+  /* if no ? */
+  if (curUrl.search(/\?/) == -1) {
+    window.location.href = curUrl + '?fc=1';
+  } else {
+    /* if no fc=1 */
+    if (curUrl.search(/fc\=1/) == -1) {
+      window.location.href = curUrl + '&fc=1';
+    } else {
+      window.location.href = curUrl;
+    }
+  }
 }

@@ -38,9 +38,9 @@ document.querySelector("body").appendChild(panel);
 add_label('From WEO Client Pages');
 // add open in new tab
 add_bookmarklet('ForceCache Page', forceCache);
-add_bookmarklet('Get Edit Page', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed);`);
-add_bookmarklet('Get Edit Template', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt);`);
-add_bookmarklet('Get WebEdit', `javascript:remove_panel(); let weo = document.querySelector('meta[content="wspd"]'); window.open('https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c);`);
+add_bookmarklet('Get Edit Page', getEditEdition);
+add_bookmarklet('Get Edit Template', getEditTemplate);
+add_bookmarklet('Get WebEdit', getWebEdit);
 add_bookmarklet('search analysis A', searchAnalysisA);
 add_bookmarklet('search analysis B', searchAnalysisB);
 add_bookmarklet('seo-analysis', seoAnalysis);
@@ -50,6 +50,7 @@ add_label('From WEO Sys Pages');
 add_bookmarklet('Swap Tab Title', swapWeoSysTitle);
 add_bookmarklet('Get HTML of Article', getHtmlOfArticle);
 add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
+add_bookmarklet('Show Images', showImagesBandaid);
 
 // SEO
 add_label('SEO');
@@ -151,6 +152,24 @@ function showAllLinks(){
   }
   w = window.open('', 'Links', 'scrollbars,resizable,width=400,height=600');
   w.document.write(a);
+}
+
+function getEditEdition() {
+  remove_panel();
+  let weo = document.querySelector('meta[content="wspd"]');
+  window.open('https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed);
+}
+
+function getEditTemplate() {
+  remove_panel();
+  let weo = document.querySelector('meta[content="wspd"]');
+  window.open('https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt);
+}
+
+function getWebEdit() {
+  remove_panel();
+  let weo = document.querySelector('meta[content="wspd"]');
+  window.open('https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c);
 }
 
 function swapWeoSysTitle(){
@@ -485,6 +504,17 @@ function getByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
+function getAllByXpath(path) {
+  var nodeSet = document.evaluate(path, document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null)
+  var node = nodeSet.iterateNext();
+  var nodeArr = []
+  while (node) {
+   nodeArr.push(node.nodeValue);
+   node = nodeSet.iterateNext();
+  }
+  return nodeArr;
+}
+
 function forceCache() {
   var curUrl = window.location.href;
   /* if no ? */
@@ -498,4 +528,45 @@ function forceCache() {
       window.location.href = curUrl;
     }
   }
+}
+
+function getArt1() {
+  let weo = document.querySelector('meta[content="wspd"]');
+  let editPage = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;
+  // let w = window.open(editPage, '', 'scrollbars,resizable,width=600,height=400');
+  fetch(editPage)
+    .then(function(response) {
+      // When the page is loaded convert it to text
+      return response.text()
+    })
+    .then(function(html) {
+      // Initialize the DOM parser
+      var parser = new DOMParser();
+
+      // Parse the text
+      var doc = parser.parseFromString(html, "text/html");
+
+      // You can now even select part of that html as you would in the regular DOM 
+      // Example:
+      // var docArticle = doc.querySelector('body').innerHTML;
+
+      console.log(doc);
+    })
+    .catch(function(err) {  
+      console.log('Failed to fetch page: ', err);  
+    });
+}
+
+function showImagesBandaid() {
+  let imgList = Array.from(document.querySelectorAll('form[name="ImageGridForm"] img'));
+  let imgAnchorList = [];
+  imgList.forEach((img) => {
+    imgAnchorList.push(img.parentElement);
+    var imgSrc = img.src.replace(/https\:\/\/www\.weo\d\.com/, '\/tpn');
+    img.src = imgSrc;
+  });
+  imgAnchorList.forEach((a) => {
+    var anchor = a.href.replace(/https\:\/\/www\.weo\d\.com/, '\/tpn');
+    a.href = anchor;
+  });
 }

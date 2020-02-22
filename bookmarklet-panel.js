@@ -51,7 +51,7 @@ add_label('From WEO Sys Pages');
 add_bookmarklet('Swap Tab Title', swapWeoSysTitle);
 add_bookmarklet('Get HTML of Article', getHtmlOfArticle);
 add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
-add_bookmarklet('Get links from WebEdit', getLinksFromWebEdit);
+add_bookmarklet('Get links from WebEdit', getAllLinksFromWebEdit);
 add_bookmarklet('Show Images', showImagesBandaid);
 
 // SEO
@@ -84,7 +84,7 @@ add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
 
 // Updates Section
 add_label('Latest Version');
-add_bookmarklet('<img src="https://img.shields.io/github/v/tag/weo-media/bookmarklets.svg">', 'https://www.weo2.com/index.asp?N=dentist-Bookmarklets-Panel&Preview=1&C=777&P=43800');
+add_bookmarklet('<img src="https://img.shields.io/github/v/tag/WEOmedia/bookmarklets.svg">', 'https://www.online-dds.com/weopanel');
 add_bookmarklet('Close', remove_panel);
 
 // append bookmarklets
@@ -201,14 +201,14 @@ function getPagesListFromWebEdit() {
   w.document.write(pageIDs);
 }
 
-function getLinksFromWebEdit() {
+function getAllLinksFromWebEdit() {
   let pages = Array.from(document.querySelectorAll('tr>td.tpItemText>a'));
   let pageLinks = [];
   let pageIDs = [];
   for (i=0;i<pages.length;i++) {
     pageID = pages[i].title.split(' - ')[0].slice(8);
     pageText = pages[i].text;
-    pageIDs += `<div><a href="www.weo2.com/p/${pageText.replace(' ', '-')}-p${pageID}.asp?preview=1" target="_blank">${pageID} - ${pageText}</a></div>`;
+    pageIDs += `<div><a href="www.weo2.com/p/${pageText.replace(/ /g, '-')}-p${pageID}.asp?preview=1" target="_blank">${pageID} - ${pageText}</a></div>`;
   }
   let w = window.open('', 'Pages List', 'scrollbars, resizable, width=800, height=600');
   w.document.write(pageIDs);

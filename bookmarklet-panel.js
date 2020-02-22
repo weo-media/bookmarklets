@@ -38,6 +38,7 @@ document.querySelector("body").appendChild(panel);
 add_label('From WEO Client Pages');
 // add open in new tab
 add_bookmarklet('ForceCache Page', forceCache);
+add_bookmarklet('Hard Refresh', hardRefresh);
 add_bookmarklet('Get Edit Page', getEditEdition);
 add_bookmarklet('Get Edit Template', getEditTemplate);
 add_bookmarklet('Get WebEdit', getWebEdit);
@@ -50,6 +51,7 @@ add_label('From WEO Sys Pages');
 add_bookmarklet('Swap Tab Title', swapWeoSysTitle);
 add_bookmarklet('Get HTML of Article', getHtmlOfArticle);
 add_bookmarklet('Get Page Keys from WebEdit', getPagesListFromWebEdit);
+add_bookmarklet('Get links from WebEdit', getLinksFromWebEdit);
 add_bookmarklet('Show Images', showImagesBandaid);
 
 // SEO
@@ -194,6 +196,19 @@ function getPagesListFromWebEdit() {
     pageID = pages[i].title.split(' - ')[0].slice(8);
     pageText = pages[i].text;
     pageIDs += `<div>[[[Page:${pageID}|${pageText}|]]]</div>`;
+  }
+  let w = window.open('', 'Pages List', 'scrollbars, resizable, width=800, height=600');
+  w.document.write(pageIDs);
+}
+
+function getLinksFromWebEdit() {
+  let pages = Array.from(document.querySelectorAll('tr>td.tpItemText>a'));
+  let pageLinks = [];
+  let pageIDs = [];
+  for (i=0;i<pages.length;i++) {
+    pageID = pages[i].title.split(' - ')[0].slice(8);
+    pageText = pages[i].text;
+    pageIDs += `<div><a href="www.weo2.com/p/${pageText.replace(' ', '-')}-p${pageID}.asp?preview=1" target="_blank">${pageID} - ${pageText}</a></div>`;
   }
   let w = window.open('', 'Pages List', 'scrollbars, resizable, width=800, height=600');
   w.document.write(pageIDs);
@@ -505,14 +520,12 @@ function getByXpath(path) {
 }
 
 function getAllByXpath(path) {
-  var nodeSet = document.evaluate(path, document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null)
-  var node = nodeSet.iterateNext();
-  var nodeArr = []
-  while (node) {
-   nodeArr.push(node.nodeValue);
-   node = nodeSet.iterateNext();
+  var nodeSet = document.evaluate(path, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+  var resultsArr = [];
+  for (var i = 0; i < nodeSet.snapshotLength; i++) {
+    resultsArr.push(nodeSet.snapshotItem(i));
   }
-  return nodeArr;
+  return resultsArr;
 }
 
 function forceCache() {
@@ -531,30 +544,9 @@ function forceCache() {
 }
 
 function getArt1() {
+  let curUrl = window.location.href;
   let weo = document.querySelector('meta[content="wspd"]');
   let editPage = 'https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed;
-  // let w = window.open(editPage, '', 'scrollbars,resizable,width=600,height=400');
-  fetch(editPage)
-    .then(function(response) {
-      // When the page is loaded convert it to text
-      return response.text()
-    })
-    .then(function(html) {
-      // Initialize the DOM parser
-      var parser = new DOMParser();
-
-      // Parse the text
-      var doc = parser.parseFromString(html, "text/html");
-
-      // You can now even select part of that html as you would in the regular DOM 
-      // Example:
-      // var docArticle = doc.querySelector('body').innerHTML;
-
-      console.log(doc);
-    })
-    .catch(function(err) {  
-      console.log('Failed to fetch page: ', err);  
-    });
 }
 
 function showImagesBandaid() {
@@ -569,4 +561,8 @@ function showImagesBandaid() {
     var anchor = a.href.replace(/https\:\/\/www\.weo\d\.com/, '\/tpn');
     a.href = anchor;
   });
+}
+
+function hardRefresh() {
+  window.location.reload(true);
 }

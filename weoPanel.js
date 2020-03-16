@@ -38,6 +38,7 @@ document.querySelector("body").appendChild(panel);
 add_label('From WEO Client Pages');
 // add open in new tab
 add_bookmarklet('ForceCache Page', forceCache);
+add_bookmarklet('Cache All Pages', cacheAllPages);
 add_bookmarklet('Hard Refresh', hardRefresh);
 add_bookmarklet('Preview Page', forcePreview);
 add_bookmarklet('Get Edit Page', getEditEdition);
@@ -577,6 +578,29 @@ function showImagesBandaid() {
     var anchor = a.href.replace(/https\:\/\/www\.weo\d\.com/, '\/tpn');
     a.href = anchor;
   });
+}
+
+function cacheAllPages() {
+  var theUrl = document.location.origin;
+  var request = new XMLHttpRequest();
+
+  request.open('POST', 'https://api.apify.com/v2/acts/fpDvtjKQwibE4LhbS/runs?token=iRqeCj3PSQ9dkTmwfYzJGXbzM');
+
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
+    }
+  };
+
+  var body = {
+    'url': theUrl
+  };
+
+  request.send(JSON.stringify(body));
 }
 
 function hardRefresh() {

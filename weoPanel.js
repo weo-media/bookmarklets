@@ -584,6 +584,10 @@ function cacheAllPages() {
   var theUrl = document.location.origin;
   var request = new XMLHttpRequest();
 
+  if (subpanel && subpanel.hidden == false) {
+    hide_panel();
+  }
+
   request.open('POST', 'https://api.apify.com/v2/acts/fpDvtjKQwibE4LhbS/runs?token=iRqeCj3PSQ9dkTmwfYzJGXbzM');
 
   request.setRequestHeader('Content-Type', 'application/json');

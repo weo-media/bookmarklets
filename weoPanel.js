@@ -82,7 +82,7 @@ add_bookmarklet('Show All Links', showAllLinks);
 
 // Security and Auditing Section
 add_label('Security and Auditing');
-add_bookmarklet('Remove Cookies', `javascript:void(document.cookie=null)`);
+add_bookmarklet('Remove Cookies', deleteAllCookies);
 
 // Updates Section
 add_label('Latest Version');
@@ -582,6 +582,10 @@ function showImagesBandaid() {
 
 function cacheAllPages() {
   var theUrl = document.location.origin;
+  var isWeoSys = theUrl.search(/www\.weo\d+\./);
+  if (isWeoSys > 0) {
+    theUrl = [...document.querySelector('.TPshweb a').href.matchAll(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4})\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)][0][1];
+  }
   var request = new XMLHttpRequest();
 
   if (subpanel && subpanel.hidden == false) {
@@ -609,4 +613,15 @@ function cacheAllPages() {
 
 function hardRefresh() {
   window.location.reload(true);
+}
+
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";").map(x => { x = x.trim(); return x});
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : eqPos == -1 ? name = "" :  cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }

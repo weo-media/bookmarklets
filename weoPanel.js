@@ -161,19 +161,19 @@ function showAllLinks(){
 function getEditEdition() {
   remove_panel();
   let weo = document.querySelector('meta[content="wspd"]');
-  window.open('https://www.weo2.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed);
+  window.open('https://www.weo' + weo.dataset.sv + '.com/sys/index.asp?f=editEdition&C=' + weo.dataset.c + '&EDID=' + weo.dataset.ed);
 }
 
 function getEditTemplate() {
   remove_panel();
   let weo = document.querySelector('meta[content="wspd"]');
-  window.open('https://www.weo2.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt);
+  window.open('https://www.weo' + weo.dataset.sv + '.com/sys/index.asp?f=editTemplate&C=' + weo.dataset.c + '&TMPID=' + weo.dataset.rt);
 }
 
 function getWebEdit() {
   remove_panel();
   let weo = document.querySelector('meta[content="wspd"]');
-  window.open('https://www.weo2.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c);
+  window.open('https://www.weo' + weo.dataset.sv + '.com/sys/index.asp?f=editWebsite&C=' + weo.dataset.c);
 }
 
 function swapWeoSysTitle(){
